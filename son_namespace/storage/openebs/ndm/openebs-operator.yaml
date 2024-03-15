@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openebs-ndm-config
+  namespace: openebs
+data:
+  node-disk-manager.config: |
+    filterconfigs:
+      - key: path-filter
+        name: path filter
+        state: true
+        include: "/dev/sda"
+        exclude: ""         

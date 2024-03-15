@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mongodb
+  namespace: mongodb
+spec:
+  isCA: false
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  dnsNames:
+  - "*.my-mongodb-svc.mongodb.svc.cluster.local" # Using wildcard for flexibility
+  secretName: mongodb-key-pair
+  privateKey:
+    algorithm: ECDSA # Using ECC for better performance
+    size: 256 # ECC 256-bit is roughly equivalent to RSA 2048-bit
+  issuerRef:
+    name: devopsbyexample-io-ca
+    kind: ClusterIssuer
+    group: cert-manager.io

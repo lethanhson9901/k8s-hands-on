@@ -1,0 +1,16 @@
+
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: fastapi-chart-pod-kill
+  namespace: chaos-mesh
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      'app': 'fastapi-chart'
+    # fieldSelectors:
+    #   'metadata.name': 'fastapi-chart-6fc4447bd-rq82p'

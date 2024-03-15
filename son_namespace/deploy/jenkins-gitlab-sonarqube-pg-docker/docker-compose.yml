@@ -1,0 +1,72 @@
+version: '3.8'
+ 
+services:
+   jenkins:
+       image: jenkins/jenkins:lts
+       privileged: true
+       user: root
+       container_name: jenkins-container
+       restart: always
+       ports:
+           - '8001:8080'
+           - '50000:50000'
+       volumes:
+       - '/var/run/docker.sock:/var/run/docker.sock'
+       - '/var/jenkins_home:/var/jenkins_home'
+       environment:
+       - "JENKINS_OPTS=--prefix=/jenkins"
+ 
+   gitlab:
+       image: gitlab/gitlab-ce:latest
+       container_name: gitlab-container
+       restart: always
+       environment:
+           - GITLAB_SECRETS_DB_KEY_BASE=bigdatatsondeptrai
+           - GITLAB_HOST=10.16.150.138
+           - GITLAB_PORT=8003
+           - GITLAB_SSH_PORT=8004
+       ports:
+           - "8003:80"
+           - "8004:22"
+       volumes:
+       - '/etc/gitlab:/etc/gitlab'
+       - '/var/log/gitlab:/var/log/gitlab'
+       - '/var/opt/gitlab:/var/opt/gitlab'
+ 
+   sonarqube:
+       image: sonarqube:community
+       container_name: sonar-container
+       restart: always
+       networks:
+           - sonarnet
+       environment:
+           - SONARQUBE_JDBC_USERNAME=sonar
+           - SONARQUBE_JDBC_PASSWORD=bigdatatsondeptrai
+           - SONARQUBE_JDBC_URL=jdbc:postgresql://postgressdb:5432/sonarqube
+       ports:
+       - "8005:9000"
+       - "8006:9092"
+       volumes:
+       - '/opt/sonarqube/conf:/opt/sonarqube/conf'
+       - '/opt/sonarqube/data:/opt/sonarqube/data'
+       - '/opt/sonarqube/extensions:/opt/sonarqube/extensions'
+       - '/opt/sonarqube/lib/bundled-plugins:/opt/sonarqube/lib/bundled-plugins'
+       
+  
+   postgressdb:
+       image: postgres:latest
+       container_name: postgres-container
+       restart: always
+       networks:
+           - sonarnet
+       environment:
+           - POSTGRES_USER=sonar
+           - POSTGRES_PASSWORD=bigdatatsondeptrai
+           - POSTGRES_DB=sonarqube
+       volumes:
+       - '/var/lib/postgresql:/var/lib/postgresql'
+       - '/var/lib/postgresql/data:/var/lib/postgresql/data'
+ 
+networks:
+   sonarnet:
+    driver: bridge

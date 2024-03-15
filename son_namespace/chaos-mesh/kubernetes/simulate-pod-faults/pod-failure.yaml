@@ -1,0 +1,17 @@
+
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: etcd-k8s-master-1-pod-failure
+  namespace: chaos-mesh
+spec:
+  action: pod-failure
+  mode: one
+  duration: '30s'
+  selector:
+    namespaces:
+      - kube-system
+    labelSelectors:
+      'k8s-app': 'etcd'
+    fieldSelectors:
+      'metadata.name': 'etcd-k8s-master-1'

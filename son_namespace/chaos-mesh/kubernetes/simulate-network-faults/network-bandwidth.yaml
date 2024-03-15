@@ -1,0 +1,23 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: fastapi-chart-bandwidth
+spec:
+  action: bandwidth
+  mode: all
+  duration: '2m' # Specifies the duration of the bandwidth limitation
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      'app': 'fastapi-chart'
+  bandwidth:
+    rate: '1mbps' # Limit the bandwidth to 1 Mbps
+    limit: 20971520 # Maximum bytes that can be queued
+    buffer: 10000 # Buffer size
+
+
+# Expected Result with Duration:
+# Temporary Bandwidth Limitation: The bandwidth limitation to 1 Mbps will be applied to all traffic to and from Pods labeled with app=fastapi-chart for a total duration of 2 minutes. After this period, the network bandwidth will return to its normal state.
+# Observing Recovery: This allows you to not only observe how the application behaves under constrained bandwidth conditions but also how quickly it can recover once the normal network conditions are restored.
+# Identify Potential Issues: The temporary nature of the experiment helps in identifying issues related to network performance under stress and the application's ability to adapt to changing network conditions.

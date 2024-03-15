@@ -1,0 +1,4 @@
+
+cluster_vip: 10.x.x.140  # Default cluster VIP
+node_ip: 10.x.x.137      # Default node IP
+pod_network_cidr: 192.168.0.0/16  # Default pod network CIDR

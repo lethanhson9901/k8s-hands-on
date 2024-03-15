@@ -1,0 +1,21 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: fastapi-chart-memory-stress
+  namespace: chaos-mesh
+spec:
+  mode: one
+  duration: '5m' # Specifies the duration of the memory stress
+  selector:
+    labelSelectors:
+      'app': 'fastapi-chart'
+  stressors:
+    memory:
+      workers: 3 # Number of workers to apply memory stress
+      size: '256MB' # Amount of memory stress per worker
+
+# Expected Result:
+# Temporary Memory Stress: The memory stress condition (with 3 workers each consuming 256MB of memory) will be applied to one of the Pods labeled with app=fastapi-chart for a total duration of 5 minutes. After this period, the stress condition will be lifted, and the Pod's memory usage should return to its normal state.
+# Observing Application Behavior: This allows you to observe how the fastapi-chart application manages increased memory usage, including how it handles garbage collection, potential memory leaks, and its overall resilience to memory stress conditions.
+# Impact on Service Availability: Depending on the application's memory usage patterns and the cluster's resource limits, this experiment may temporarily affect the availability or responsiveness of the fastapi-chart service.
+# Recovery Analysis: After the experiment concludes, it's crucial to observe the application's recovery process, how quickly it releases the stressed memory, and returns to normal operation. This can provide valuable insights into the application's memory management efficiency and resilience.

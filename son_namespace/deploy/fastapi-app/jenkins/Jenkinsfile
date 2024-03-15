@@ -1,0 +1,102 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define environment variables and credentials
+        DOCKER_IMAGE = 'todo-app:1.0.0'
+        HARBOR_REGISTRY = 'harbor.demo.bigdata.com'
+        GITLAB_SOURCE = 'http://10.16.150.138:8003/root/django-demo.git'
+        SONARQUBE_SERVER = 'http://10.16.150.138:8005'
+        EMAIL_SEND = 'hoasung9901@gmail.com'
+        // Credentials
+        HARBOR_CREDENTIALS = credentials('57c89670-048a-482e-b526-5667c8aa8f32')
+        GITLAB_CREDENTIALS = credentials('gitlab_access_token')
+        SONARQUBE_TOKEN = credentials('sonarqube_access_token')
+        
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from GitLab
+                git url: GITLAB_SOURCE, credentialsId: GITLAB_CREDENTIALS
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Building Docker Image
+                    sh 'docker build -t $DOCKER_IMAGE .'
+                    // Tagging and pushing to Harbor
+                    docker.withRegistry(HARBOR_REGISTRY, HARBOR_CREDENTIALS) {
+                        sh 'docker tag $DOCKER_IMAGE $HARBOR_REGISTRY/$DOCKER_IMAGE'
+                        sh 'docker push $HARBOR_REGISTRY/$DOCKER_IMAGE'
+                    }
+                }
+            }
+        }
+
+        stage('Quality Analysis with SonarQube') {
+            steps {
+                script {
+                    // Running SonarQube analysis
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=your_project_key -Dsonar.host.url=$SONARQUBE_SERVER -Dsonar.login=$SONARQUBE_TOKEN'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Deployment steps
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up the workspace to ensure a fresh start for the next build
+            cleanWs()
+            echo 'Pipeline execution complete.'
+        }
+        success {
+            // Notify team members or stakeholders when the build succeeds
+            echo 'Build was successful!'
+            // Send success notification via email
+            mail to: EMAIL_SEND,
+                subject: "Success: Pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build was successful! Check it out at ${env.BUILD_URL}"
+        }
+        failure {
+            // Handle failures with actionable notifications
+            echo 'Build failed!'
+            // Send failure notification via email with details for quick diagnostics
+            mail to: EMAIL_SEND,
+                subject: "Failure: Pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build failed. Please check the console output at ${env.BUILD_URL} for more details."
+        }
+        unstable {
+            // Handle unstable builds (e.g., test failures)
+            echo 'Build is unstable (e.g., test failures)'
+            // Notify about unstable builds
+            mail to: EMAIL_SEND,
+                subject: "Unstable Build: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build is unstable. Some tests failed. Check ${env.BUILD_URL} for more information."
+        }
+        changed {
+            // Notify when the status of the pipeline changes (e.g., from failing to successful)
+            echo 'Pipeline status changed'
+            // Notify about the change in pipeline status
+            mail to: EMAIL_SEND,
+                subject: "Status Changed: Pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The status of the pipeline has changed. Current status: ${currentBuild.currentResult}. Check ${env.BUILD_URL} for more details."
+        }
+    }
+
+}
+

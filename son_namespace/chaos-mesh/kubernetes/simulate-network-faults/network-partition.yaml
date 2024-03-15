@@ -1,0 +1,21 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: fastapi-to-nginx-partition
+spec:
+  action: partition
+  mode: all
+  duration: '2m' # Specifies the duration of the network partition
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      'app': 'fastapi-chart'
+  direction: to
+  target:
+    mode: all
+    selector:
+      namespaces:
+        - default
+      labelSelectors:
+        'app': 'my-nginx'

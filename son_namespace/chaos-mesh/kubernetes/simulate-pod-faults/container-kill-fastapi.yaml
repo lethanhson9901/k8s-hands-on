@@ -1,0 +1,15 @@
+
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: fastapi-chart-container-kill
+  namespace: chaos-mesh
+spec:
+  action: container-kill
+  mode: one
+  containerNames: ['fastapi-chart']
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      'app': 'fastapi-chart'

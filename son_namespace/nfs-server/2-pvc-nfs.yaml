@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc2
+spec:
+  storageClassName: sonstorageclass
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

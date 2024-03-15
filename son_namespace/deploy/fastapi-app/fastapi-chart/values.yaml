@@ -1,0 +1,88 @@
+# Number of replicas
+replicaCount: 1
+
+# Image configuration
+image:
+  repository: harbor.demo.bigdata.com/library/todo-app
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: NodePort # Change from ClusterIP to NodePort
+  port: 8081
+  nodePort: 30080 # Comment when it is ClusterIP
+
+serviceAccount:
+  create: true
+  # Add other necessary fields
+
+# Ingress configuration
+ingress:
+  enabled: false
+  # Uncomment and configure if ingress is needed
+  # annotations: {}
+  # hosts:
+  #   - host: chart-example.local
+  #     paths: []
+  # tls: []
+
+# Environment variables
+env:
+  NAME: "World"
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: "100m"
+    memory: "128Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+
+# Node selector for pod assignment
+nodeSelector: {}
+
+# Tolerations for pod assignment
+tolerations: []
+
+# Affinity for pod assignment
+affinity: {}
+
+# Security Context
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+
+# Configure liveness, readiness and startup probes
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 15
+  timeoutSeconds: 3
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /readiness
+    port: http
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  periodSeconds: 10
+
+startupProbe:
+  httpGet:
+    path: /start
+    port: http
+  failureThreshold: 30
+  periodSeconds: 10
+
+# Autoscaling (if applicable)
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+

@@ -1,0 +1,21 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: io-fault-example
+  namespace: chaos-mesh
+spec:
+  action: fault
+  mode: one
+  selector:
+    labelSelectors:
+      app: etcd
+  volumePath: /var/run/etcd
+  path: /var/run/etcd/**/*
+  errno: 5
+  percent: 50
+  duration: '40s'
+
+# Expected Output:
+# Increased IO Failures: The targeted etcd Pod will experience an increase in IO failures, with roughly half of the operations to the specified files failing. This could lead to errors logged by etcd regarding failed reads/writes or other file operations.
+# Impact on etcd and Cluster Performance: Given the critical role of etcd in Kubernetes, these IO faults could affect the stability and reliability of the entire cluster. Operations dependent on etcd, like resource updates or state retrievals, may fail or experience delays.
+# Partial Disruption: The experiment's design to affect only 50% of operations introduces intermittent disruption, making the fault impact somewhat unpredictable. This partial disruption can help in assessing how well the system copes with sporadic IO failures.

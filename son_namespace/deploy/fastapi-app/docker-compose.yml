@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  todo-app:
+    image: todo-app:1.0.0
+    ports:
+      - "8081:8081"
+    environment:
+      - NAME=World
+

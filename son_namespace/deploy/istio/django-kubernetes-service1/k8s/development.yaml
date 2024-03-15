@@ -1,0 +1,53 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: service1
+#   labels:
+#     app: service1
+#     service: service1
+# spec:
+#   type: NodePort
+#   ports:
+#     - port: 8000
+#       name: http
+#       targetPort: 8000
+#   selector:
+#     app: service1
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: service1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1-deployment
+  labels:
+    app: service1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+        - name: service1-svc
+          image: service1:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+

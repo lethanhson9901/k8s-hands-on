@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: default # Match the namespace of your deployment
+  labels:
+    app: postgres
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      targetPort: 5432 # Assuming your PostgreSQL container listens on 5432
+      protocol: TCP
+  selector:
+    app: postgres

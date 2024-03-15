@@ -1,0 +1,17 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: fastapi-chart-delay
+spec:
+  action: delay
+  mode: one
+  duration: '2m' # This line specifies the duration of the network delay
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      'app': 'fastapi-chart'
+  delay:
+    latency: '10ms'
+    correlation: '100'
+    jitter: '0ms'

@@ -1,0 +1,11 @@
+cluster_vip: 10.x.x.252
+master_nodes:
+  - 10.x.x.137
+  - 10.x.x.140
+worker_nodes:
+  - 10.x.x.134
+  - 10.x.x.135
+  - 10.x.x.136
+lb:
+  - 10.x.x.132
+  - 10.x.x.133

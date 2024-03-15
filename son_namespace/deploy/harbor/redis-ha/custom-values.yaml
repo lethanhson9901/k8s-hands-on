@@ -1,0 +1,4 @@
+master:
+  password: "Mbf@2023"
+persistence:
+  enabled: true

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-chart
+  labels:
+    app: fastapi-chart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-chart
+  template:
+    metadata:
+      labels:
+        app: fastapi-chart
+    spec:
+      containers:
+      - name: fastapi-chart
+        image: harbor.demo.bigdata.com/library/todo-app:1.0.0
+        ports:
+        - containerPort: 8081
+        env:
+        - name: NAME
+          value: "World"
