@@ -1,0 +1,8 @@
+postgres:
+  users:
+    cluster_user:
+      username: "son"
+      password: "son123aA@"
+    cluster-superuser:
+      username: "postgres"
+      password: "son123aA@"
