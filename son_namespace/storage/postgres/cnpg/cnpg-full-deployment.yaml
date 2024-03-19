@@ -68,7 +68,7 @@ spec:
     name: cluster-example-superuser
 
   storage:
-    storageClass: standard
+    storageClass: local
     size: 1Gi
 
   # backup:
