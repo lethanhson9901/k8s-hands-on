@@ -60,26 +60,26 @@ spec:
     storageClass: standard
     size: 1Gi
 
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://cluster-cnpg-backup/
-      endpointURL: http://microk8s-hl:9000
-      s3Credentials:
-        accessKeyId:
-          name: minio-backup-creds
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: minio-backup-creds
-          key: ACCESS_SECRET_KEY
-      wal:
-        compression: gzip
-        encryption: AES256
-      data:
-        compression: gzip
-        encryption: AES256
-        immediateCheckpoint: false
-        jobs: 2
-    retentionPolicy: "30d"
+  # backup:
+  #   barmanObjectStore:
+  #     destinationPath: s3://cluster-cnpg-backup/
+  #     endpointURL: http://microk8s-hl:9000
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: minio-backup-creds
+  #         key: ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: minio-backup-creds
+  #         key: ACCESS_SECRET_KEY
+  #     wal:
+  #       compression: gzip
+  #       encryption: AES256
+  #     data:
+  #       compression: gzip
+  #       encryption: AES256
+  #       immediateCheckpoint: false
+  #       jobs: 2
+  #   retentionPolicy: "30d"
 
   resources:
     requests:
