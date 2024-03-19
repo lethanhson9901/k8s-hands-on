@@ -68,8 +68,12 @@ spec:
     name: cluster-example-superuser
 
   storage:
-    # storageClass: local
+    storageClass: rook-ceph-block-1-rep
     size: 1Gi
+  
+  # walStorage:
+  #   storageClass: rook-ceph-block-1-rep
+  #   size: 1Gi
 
   # backup:
   #   barmanObjectStore:
