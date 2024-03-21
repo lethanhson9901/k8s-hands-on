@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: rook-ceph-bucket
+  #  labels:
+  #   aws-s3/object
+# Change "rook-ceph" provisioner prefix to match the operator namespace if needed
+provisioner: rook-ceph.ceph.rook.io/bucket
+parameters:
+  objectStoreName: son-s3-store
+  objectStoreNamespace: rook-ceph
+  region: us-east-1
+  # bucketName: {}
+reclaimPolicy: Delete
