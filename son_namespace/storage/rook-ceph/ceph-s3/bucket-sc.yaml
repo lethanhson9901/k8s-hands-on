@@ -12,3 +12,16 @@ parameters:
   region: us-east-1
   # bucketName: {}
 reclaimPolicy: Delete
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: ceph-bucket
+  # namespace: rook-ceph
+spec:
+  # bucketName: {}
+  generateBucketName: loki-chunks-ceph-bkt
+  storageClassName: rook-ceph-bucket
+  # additionalConfig:
+  #   maxObjects: "1000"
+  #   maxSize: "2G"
