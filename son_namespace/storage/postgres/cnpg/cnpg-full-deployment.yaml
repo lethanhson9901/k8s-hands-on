@@ -111,3 +111,6 @@ spec:
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: false
+
+  monitoring:
+    enablePodMonitor: true
