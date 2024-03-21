@@ -2,13 +2,16 @@ apiVersion: ceph.rook.io/v1
 kind: CephObjectStore
 metadata:
   name: store-a
-  namespace: rook-ceph # namespace:cluster
+  namespace: rook-ceph
 spec:
-  sharedPools:
-    metadataPoolName: rgw-meta-pool
-    dataPoolName: rgw-data-pool
-    preserveRadosNamespaceDataOnDelete: true
+  metadataPool:
+    name: rgw-meta-pool
+    # Include required pool configuration here
+  dataPool:
+    name: rgw-data-pool
+    # Include required pool configuration here
+  preservePoolsOnDelete: true  # This is the correct field if you intend to preserve pool data on deletion
   gateway:
-    sslCertificateRef:
+    # If you have an SSL certificate, reference it here
     port: 80
     instances: 1
