@@ -69,4 +69,4 @@ Cloud Native PostgreSQL is designed to be fully Kubernetes-native, employing a c
 
 Cloud Native PostgreSQL marries the robustness of PostgreSQL with Kubernetes' agility and automation, addressing deployment challenges and unlocking the potential for scalable, reliable database management in cloud-native environments.
 
-For more information and advanced configurations, visit the official Cloud Native PostgreSQL documentation at [Cloud Native PG](https://cloudnative-pg.io/).
+For more information and advanced configurations, visit the official Cloud Native PostgreSQL documentation at [Cloud Native PG](https://cloudnative-pg.io/documentation/1.22/storage/).
