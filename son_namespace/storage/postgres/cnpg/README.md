@@ -34,7 +34,7 @@ helm upgrade --install cnpg --namespace database cnpg/cloudnative-pg
 
 #### 2. Create a PostgreSQL Deployment with Ceph Storagek ge
 
-Create a file named (local-cnpg-full-deployment.yaml)[./local-cnpg-full-deployment.yaml] with your PostgreSQL deployment configuration.
+Create a file named [local-cnpg-full-deployment.yaml](./local-cnpg-full-deployment.yaml) with your PostgreSQL deployment configuration.
 
 #### 3. Deploy Cloud Native PostgreSQL
 
