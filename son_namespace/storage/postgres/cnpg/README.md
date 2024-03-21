@@ -39,6 +39,7 @@ Create a file named [local-cnpg-full-deployment.yaml](./local-cnpg-full-deployme
 #### 3. Deploy Cloud Native PostgreSQL
 
 ```shell
+kubectl create ns database
 kubectl -n database apply -f local-cnpg-full-deployment.yaml
 ```
 
