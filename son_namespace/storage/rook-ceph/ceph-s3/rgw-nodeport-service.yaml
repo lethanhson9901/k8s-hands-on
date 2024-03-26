@@ -13,4 +13,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      # nodePort: <You can specify a port here or leave it empty to auto-assign>
+      nodePort: 30080
