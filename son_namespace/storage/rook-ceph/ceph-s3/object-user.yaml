@@ -1,8 +1,0 @@
-apiVersion: ceph.rook.io/v1
-kind: CephObjectStoreUser
-metadata:
-  name: son
-  namespace: rook-ceph
-spec:
-  store: my-store
-  displayName: "Le Thanh Son"
