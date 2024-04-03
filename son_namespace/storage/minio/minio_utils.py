@@ -18,7 +18,7 @@ def list_bucket_objects(bucket_name):
     # List objects in the specified bucket
     try:
         objects = minio_client.list_objects(bucket_name, recursive=True)
-        print(objects)
+        print(objects.__dict__)
         # for obj in objects:
         #     print(obj.bucket_name, obj.object_name.encode('utf-8'), obj.last_modified,
         #           obj.etag, obj.size, obj.content_type)
