@@ -18,9 +18,10 @@ def list_bucket_objects(bucket_name):
     # List objects in the specified bucket
     try:
         objects = minio_client.list_objects(bucket_name, recursive=True)
-        for obj in objects:
-            print(obj.bucket_name, obj.object_name.encode('utf-8'), obj.last_modified,
-                  obj.etag, obj.size, obj.content_type)
+        print(objects)
+        # for obj in objects:
+        #     print(obj.bucket_name, obj.object_name.encode('utf-8'), obj.last_modified,
+        #           obj.etag, obj.size, obj.content_type)
     except S3Error as err:
         print("S3 Error:", err)
 
