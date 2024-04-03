@@ -10,7 +10,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Load environment variables from .env file
 load_dotenv()
-print(os.getenv('MINIO_SERVER'))
+# print(os.getenv('MINIO_SERVER'))
 
 def list_bucket_objects(bucket_name):
     # Create a client with the MinIO server hostname, and access and secret keys.
@@ -24,6 +24,7 @@ def list_bucket_objects(bucket_name):
     # List objects in the specified bucket
     try:
         objects = minio_client.list_objects(bucket_name, recursive=True)
+        print(objects)
         for obj in objects:
             print(obj.bucket_name, obj.object_name.encode('utf-8'), obj.last_modified,
                   obj.etag, obj.size, obj.content_type)
