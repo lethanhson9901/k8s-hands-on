@@ -24,9 +24,8 @@ def list_bucket_objects(bucket_name):
     # List objects in the specified bucket
     try:
         objects = minio_client.list_objects(bucket_name, recursive=True)
-        print(objects)
         for obj in objects:
-            print(obj)
+            print(obj.object_name)  # Accessing the object name from the returned object
     except S3Error as err:
         # Print out the error response for debugging
         print("S3 Error:", err)
