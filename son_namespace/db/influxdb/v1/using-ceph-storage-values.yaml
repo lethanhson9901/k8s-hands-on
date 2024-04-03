@@ -229,7 +229,7 @@ initScripts:
       CREATE DATABASE "telegraf" WITH DURATION 30d REPLICATION 1 NAME "rp_30d"
 
 backup:
-  enabled: false
+  enabled: true
   ## By default emptyDir is used as a transitory volume before uploading to object store.
   ## As such, ensure that a sufficient ephemeral storage request is set to prevent node disk filling completely.
   resources:
