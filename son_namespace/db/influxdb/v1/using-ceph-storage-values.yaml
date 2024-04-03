@@ -243,7 +243,7 @@ backup:
       # ephemeral-storage: "16Gi"
   ## If backup destination is PVC, or want to use intermediate PVC before uploading to object store.
   persistence:
-    enabled: false
+    enabled: true
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
