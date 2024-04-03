@@ -22,7 +22,39 @@ helm upgrade --install influxdb2-release -f values.yaml influxdata/influxdb2
 
 Ensure your `values.yaml` file specifies necessary configurations such as persistence settings, resource allocations, and any custom configurations tailored to your environment.
 
-Now pvc `influxdb2-release` is pending beacause no persistent volumes available for this claim and no storage class is set. To allow dynamic provisioning using Ceph Storage Class `rook-ceph-block`:
+Now pvc `influxdb2-release` is pending beacause no persistent volumes available for this claim and no storage class is set. 
+
+```shell
+(base) [root@k8s-master-1 v2]# k get pvc
+NAME                STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+influxdb2-release   Pending                                                     <unset>                 11s
+(base) [root@k8s-master-1 v2]# k describe pvc influxdb2-release
+Name:          influxdb2-release
+Namespace:     default
+StorageClass:  
+Status:        Pending
+Volume:        
+Labels:        app.kubernetes.io/instance=influxdb2-release
+               app.kubernetes.io/managed-by=Helm
+               app.kubernetes.io/name=influxdb2
+               app.kubernetes.io/version=2.7.4
+               helm.sh/chart=influxdb2-2.1.2
+Annotations:   helm.sh/resource-policy: keep
+               meta.helm.sh/release-name: influxdb2-release
+               meta.helm.sh/release-namespace: default
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      
+Access Modes:  
+VolumeMode:    Filesystem
+Used By:       influxdb2-release-0
+Events:
+  Type    Reason         Age                   From                         Message
+  ----    ------         ----                  ----                         -------
+  Normal  FailedBinding  13s (x11 over 2m30s)  persistentvolume-controller  no persistent volumes available for this claim and no storage class is set
+
+```
+
+To allow dynamic provisioning using Ceph Storage Class `rook-ceph-block`:
 
 
 ```shell
