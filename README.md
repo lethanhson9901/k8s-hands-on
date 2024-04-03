@@ -180,6 +180,12 @@ For more detailed instructions on installing and using Chaos Mesh, including set
 - [NFS File Storage](son_namespace/nfs-server/README.md)
 - [Ceph Storage](son_namespace/storage/rook-ceph/README.md)
 
+### [Databases](son_namespace/db)
+
+- [InfluxDB](son_namespace/db/influxdb/v2/README.md)
+- [PostgresDB](son_namespace/db/postgres/cnpg/README.md)
+- [MongoDB](son_namespace/db/mongodb/internal)
+
 ### Basic Application
 
 - [NGINX Ingress Controller Setup Guide](son_namespace/nginx-ingress/README.md)
