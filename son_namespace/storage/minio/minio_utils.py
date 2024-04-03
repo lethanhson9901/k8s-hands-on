@@ -7,6 +7,11 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+
+# Load environment variables from .env file
+load_dotenv()
+print(os.getenv('MINIO_SERVER'))
+
 def list_bucket_objects(bucket_name):
     # Create a client with the MinIO server hostname, and access and secret keys.
     minio_client = Minio(
