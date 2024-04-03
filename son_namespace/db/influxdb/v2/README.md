@@ -22,6 +22,13 @@ helm upgrade --install influxdb2-release -f values.yaml influxdata/influxdb2
 
 Ensure your `values.yaml` file specifies necessary configurations such as persistence settings, resource allocations, and any custom configurations tailored to your environment.
 
+Now pvc `influxdb2-release` is pending beacause no persistent volumes available for this claim and no storage class is set. To allow dynamic provisioning using Ceph Storage Class `rook-ceph-block`:
+
+
+```shell
+kubectl apply -f ceph-sc.yaml
+```
+
 ### Access and Configuration
 
 Retrieve the admin password for InfluxDB 2 with:
