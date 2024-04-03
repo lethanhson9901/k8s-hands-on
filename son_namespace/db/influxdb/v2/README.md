@@ -32,17 +32,6 @@ echo $(kubectl get secret my-release-influxdb2-auth -o "jsonpath={.data['admin-p
 
 **Note:** The admin password is set during the initial deployment. It's crucial to store this password securely.
 
-To open a shell session in the container running Telegraf run the following:
-
-```shell
-  kubectl exec -i -t --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=my-release-telegraf -o jsonpath='{.items[0].metadata.name}') /bin/sh
-```
-
-To view the logs for a Telegraf pod, run the following:
-```shell
-  kubectl logs -f --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=my-release-telegraf -o jsonpath='{ .items[0].metadata.name }')
-```
-
 ### Persistence
 
 InfluxDB 2 utilizes PersistentVolumeClaims (PVCs) to ensure data persists across pod restarts and deployments. The deployment script automatically configures a PVC.
