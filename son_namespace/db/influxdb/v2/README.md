@@ -66,7 +66,7 @@ kubectl apply -f ceph-sc.yaml
 Retrieve the admin password for InfluxDB 2 with:
 
 ```shell
-echo $(kubectl get secret influxdb2-release-influxdb2-auth -o "jsonpath={.data['admin-password']}" --namespace default | base64 --decode)
+echo $(kubectl get secret influxdb2-release-auth -o "jsonpath={.data['admin-password']}" --namespace default | base64 --decode)
 ```
 
 **Note:** The admin password is set during the initial deployment. It's crucial to store this password securely.
@@ -78,7 +78,7 @@ InfluxDB 2 utilizes PersistentVolumeClaims (PVCs) to ensure data persists across
 Verify the PVC status:
 
 ```shell
-kubectl get pvc influxdb2-release-influxdb2
+kubectl get pvc influxdb2-release
 ```
 
 ## Deploying Telegraf
@@ -98,13 +98,13 @@ helm upgrade --install telegraf-release \
 To open a shell session in the container running Telegraf:
 
 ```shell
-kubectl exec -i -t --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=telegraf-release-telegraf -o jsonpath='{.items[0].metadata.name}') /bin/sh
+kubectl exec -i -t --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=telegraf-release -o jsonpath='{.items[0].metadata.name}') /bin/sh
 ```
 
 To view Telegraf pod logs:
 
 ```shell
-kubectl logs -f --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=telegraf-release-telegraf -o jsonpath='{ .items[0].metadata.name }')
+kubectl logs -f --namespace default $(kubectl get pods --namespace default -l app.kubernetes.io/name=telegraf-release -o jsonpath='{ .items[0].metadata.name }')
 ```
 
 ## Maintenance and Support
