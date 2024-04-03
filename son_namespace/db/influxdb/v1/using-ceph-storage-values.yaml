@@ -229,7 +229,7 @@ initScripts:
       CREATE DATABASE "telegraf" WITH DURATION 30d REPLICATION 1 NAME "rp_30d"
 
 backup:
-  enabled: true
+  enabled: false
   ## By default emptyDir is used as a transitory volume before uploading to object store.
   ## As such, ensure that a sufficient ephemeral storage request is set to prevent node disk filling completely.
   resources:
@@ -243,7 +243,7 @@ backup:
       # ephemeral-storage: "16Gi"
   ## If backup destination is PVC, or want to use intermediate PVC before uploading to object store.
   persistence:
-    enabled: true
+    enabled: false
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
@@ -254,7 +254,7 @@ backup:
     annotations:
     accessMode: ReadWriteOnce
     size: 8Gi
-  # schedule: "0 0 * * *"
+  schedule: "0 0 * * *"
   startingDeadlineSeconds: ""
   annotations: {}
   podAnnotations: {}
