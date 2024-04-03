@@ -14,5 +14,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: "8Go" # Specify desired size, e.g., "10Gi"
+      storage: "8Gi" # Specify desired size, e.g., "10Gi"
   storageClassName: rook-ceph-block
