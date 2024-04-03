@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-release-influxdb2-new
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: my-release
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: influxdb2
+    app.kubernetes.io/version: "2.7.4"
+    helm.sh/chart: influxdb2-2.1.2
+annotations:
+  helm.sh/resource-policy: keep
+  meta.helm.sh/release-name: my-release
+  meta.helm.sh/release-namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi  # Specify desired size, e.g., "10Gi"
+  storageClassName: rook-ceph-block

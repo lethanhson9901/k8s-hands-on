@@ -1,0 +1,1 @@
+https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2
