@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: my-release-influxdb2
+  name: influxdb2-release-influxdb2
   namespace: default
   labels:
-    app.kubernetes.io/instance: my-release
+    app.kubernetes.io/instance: influxdb2-release
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: influxdb2
     app.kubernetes.io/version: "2.7.4"
